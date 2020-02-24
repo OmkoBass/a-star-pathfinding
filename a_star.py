@@ -18,7 +18,7 @@ class Node:
         return f'{self.position} --> '
 
 
-def astar(maze, start, finish):
+def astar(grid, start, finish):
     start_node = Node(None, start)
     start_node.g = start_node.h = start_node.f = 0
     finish_node = Node(None, finish)
@@ -51,17 +51,18 @@ def astar(maze, start, finish):
             return path[::-1]
 
         children = []
-        for new_position in [(0, -1), (0, 1), (-1, 0), (1, 0), (-1, -1), (-1, 1), (1, -1), (1, 1)]:  # Adjacent squares
+        # Next to squares
+        for new_position in [(0, -1), (0, 1), (-1, 0), (1, 0), (-1, -1), (-1, 1), (1, -1), (1, 1)]:
 
             node_position = (current_node.position[0] + new_position[0], current_node.position[1] + new_position[1])
 
             # Within range
-            if node_position[0] > (len(maze) - 1) or node_position[0] < 0 or node_position[1] > (
-                    len(maze[len(maze) - 1]) - 1) or node_position[1] < 0:
+            if node_position[0] > (len(grid) - 1) or node_position[0] < 0 or node_position[1] > (
+                    len(grid[len(grid) - 1]) - 1) or node_position[1] < 0:
                 continue
 
             # if it's one then it's a wall
-            if maze[node_position[0]][node_position[1]] != 0:
+            if grid[node_position[0]][node_position[1]] != 0:
                 continue
 
             new_node = Node(current_node, node_position)
@@ -74,6 +75,7 @@ def astar(maze, start, finish):
             child.g = current_node.g + 1
             child.h = ((child.position[0] - finish_node.position[0]) ** 2) + (
                         (child.position[1] - finish_node.position[1]) ** 2)
+                        # ** power of
             child.f = child.g + child.h
             for open_node in open_list:
                 if child == open_node and child.g > open_node.g:
@@ -84,12 +86,13 @@ def astar(maze, start, finish):
 
 def fix(position):
     # Converts to tuple and checks validity
-    if len(position) is 2:
-        position = [int(i) for i in position]
-        for i in position:
-            if -1 < i < 10:
-                position = tuple(position)
-                return position
+    position = [int(i) for i in position]
+    for i in position:
+        if -1 < i < 10:
+            position = tuple(position)
+            return position
+        else:
+            sys.exit()
 
 
 def main():

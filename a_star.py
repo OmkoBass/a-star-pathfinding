@@ -96,6 +96,7 @@ def fix(position):
 
 
 def main():
+    # Change this matrix to suit your needs, 1 is for walls, 0 is free pathing
     grid = [[0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 1, 0, 0, 0, 0, 0],

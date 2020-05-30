@@ -1,1 +1,1 @@
-# a-star-pathfinding algorithm
+# A* algorithm
